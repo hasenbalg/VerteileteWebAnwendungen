@@ -1,6 +1,6 @@
 # VerteileteWebAnwendungen
 
-## Onlinekalender mit Windows(TM) Client
+## Onlinekalender mit Windows Client und Chat-Funktion
 
 
 
@@ -11,17 +11,10 @@
 | 08:00   |    |    |    |    |    |    |    |
 | 09:00   |    |    |    |    |    |    |    |
 | 10:00   |    |    |    |    |    |    |    |
-| 11:00   |    |    |    |    |    |    |    |
-| 12:00   |    |    |    |    |    |    |    |
-| 13:00   |    |    |    |    |    |    |    |
-| 14:00   |    |    |    |    |    |    |    |
-| 15:00   |    |    |    |    |    |    |    |
-| 16:00   |    |    |    |    |    |    |    |
-| 17:00   |    |    |    |    |    |    |    |
-| 18:00   |    |    |    |    |    |    |    |
-| 19:00   |    |    |    |    |    |    |    |
-| 20:00   |    |    |    |    |    |    |    |
-| 21:00   |    |    |    |    |    |    |    |
-| 22:00   |    |    |    |    |    |    |    |
-| 23:00   |    |    |    |    |    |    |    |
-| 24:00   |    |    |    |    |    |    |    |
+
+
+### User Storys
+- Der Benutzer will sich **anmelden**.
+- Der Benutzer will seine Termine **anlegen**, **aendern** und **einsehen**.
+- Der Benutzer will mit anderen Benutzern **chatten**.
+- Der Benutzer will Termine **teilen** koennen.
