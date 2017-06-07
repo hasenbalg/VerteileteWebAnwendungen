@@ -13,7 +13,7 @@
 | 10:00   |    |    |    |    |    |    |    |
 
 
-### User Storys
+### User Stories
 - Der Benutzer will sich **anmelden**.
 - Der Benutzer will seine Termine **anlegen**, **aendern** und **einsehen**.
 - Der Benutzer will mit anderen Benutzern **chatten**.
