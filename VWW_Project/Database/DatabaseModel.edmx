@@ -13,71 +13,7 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="DatabaseModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Dates" EntityType="DatabaseModel.Date" />
-          <EntitySet Name="User" EntityType="DatabaseModel.User" />
-          <EntitySet Name="Schedules" EntityType="DatabaseModel.Schedule" />
-          <AssociationSet Name="ScheduleDate" Association="DatabaseModel.ScheduleDate">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="Date" EntitySet="Dates" />
-          </AssociationSet>
-          <AssociationSet Name="ScheduleUser" Association="DatabaseModel.ScheduleUser">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Date">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Day" Type="String" Nullable="false" />
-          <Property Name="Month" Type="String" Nullable="false" />
-          <Property Name="Year" Type="String" Nullable="false" />
-          <Property Name="Hour" Type="String" Nullable="false" />
-          <Property Name="Minute" Type="String" Nullable="false" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nickname" Type="String" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DateId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Priority" Type="String" Nullable="false" />
-        </EntityType>
-        <Association Name="ScheduleDate">
-          <End Type="DatabaseModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <End Type="DatabaseModel.Date" Role="Date" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Date">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="DateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ScheduleUser">
-          <End Type="DatabaseModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
