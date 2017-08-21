@@ -10,7 +10,7 @@ namespace WinClient
     {
         public string email { get; set; }
         public bool isOnline { get; set; }
-
+        public int id;
         public override string ToString()
         {
             return email;

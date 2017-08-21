@@ -38,10 +38,14 @@
                         <ListView x:Name="EventList">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding EventName}"/>
-                                    <GridViewColumn Header="Anfang" DisplayMemberBinding="{Binding EventStart}"/>
-                                    <GridViewColumn Header="Ende" DisplayMemberBinding="{Binding EventEnd}"/>
-                                    <GridViewColumn Header="Ort" DisplayMemberBinding="{Binding EventLocation}"/>
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Subject}" />
+                                    <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Description}"/>
+                                    <GridViewColumn Header="Anfang" DisplayMemberBinding="{Binding Start}"/>
+                                    <GridViewColumn Header="Ende" DisplayMemberBinding="{Binding End}"/>
+                                    <GridViewColumn Header="Ort" DisplayMemberBinding="{Binding Location}"/>
+                                    <GridViewColumn Header="Dauert den ganzen Tag" DisplayMemberBinding="{Binding IsFullDay}"/>
+                                    <GridViewColumn Header="Geteilt" DisplayMemberBinding="{Binding IsShared}"/>
+                                    <GridViewColumn Header="Farbe" DisplayMemberBinding="{Binding ThemeColor}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -52,20 +56,33 @@
                         <Label Content="Neuen Eintrag anlegen" FontWeight="Bold"/>
 
                         <TextBlock Text=" Was?" FontWeight="DemiBold"/>
-                        <TextBox x:Name ="EventName" Text="Name des Ereignisses" Padding="5" Margin="0 5 0 10"/>
+                        <TextBox x:Name ="SubjectTextBox" Text="Name des Ereignisses" Padding="5" Margin="0 5 0 10"/>
                         <TextBlock Text=" Wann?" FontWeight="DemiBold"/>
                         
                         <!--Wann-->
-                        <wpfTool:DateTimePicker  x:Name="EventStart" />
+                        <wpfTool:DateTimePicker  x:Name="StartDateTimePicker" />
+                            <TextBlock x:Name="ErrorTextBlock" Text="Bitte waehlen Sie ein Datum aus!" Visibility="Collapsed"/>
 
+                            <!--Dauert den ganzen Tag-->
+                        <CheckBox x:Name="FullDayCheckBox" Content="Dauer den ganzen Tag"/>
+                            
                         <!--Bis Wann-->
                         <CheckBox x:Name="UntilWhenCheckBox" Content="Bis Wann?"/>
-                      
-                        <wpfTool:DateTimePicker  x:Name="EventEnd"  Visibility="Collapsed"/>
+
+                            <wpfTool:DateTimePicker  x:Name="EndDateTimePicker"  Visibility="Collapsed"/>
                         
 
                         <TextBlock Text=" Wo?" FontWeight="DemiBold"/>
-                        <TextBox x:Name="EventLocation" Text="Ort" Padding="5" Margin="0 5 0 10"/>
+                        <TextBox x:Name="LocationTextBox" Text="Ort" Padding="5" Margin="0 5 0 10"/>
+                        
+                        <TextBlock Text=" Beschreibung" FontWeight="DemiBold"/>
+                        <TextBox x:Name="DescriptionTextBox" Height="50"  Padding="5" Margin="0 5 0 10"/>
+                        
+                        <TextBlock Text=" Farbe waehlen:" FontWeight="DemiBold"/>
+                        <wpfTool:ColorPicker x:Name="EventColorPicker" Margin="0 5 0 10"/>
+
+                        <CheckBox x:Name="shareCheckBox" Content="Soll mit anderen Nutztern geteilt werden?"/>
+
                         <Button x:Name="Submit" Content="Anlegen" />
 
                         

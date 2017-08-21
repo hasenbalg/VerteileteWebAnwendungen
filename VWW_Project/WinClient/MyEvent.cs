@@ -8,9 +8,18 @@ namespace WinClient
 {
     class MyEvent
     {
-        public  string EventName { get; set; }
-        public  DateTime EventStart { get; set; }
-        public  DateTime EventEnd { get; set; }
-        public  string EventLocation { get; set; }
+        public  string Location { get; set; }
+
+        public int Id { get; set; }
+        public  string Subject { get; set; }
+        public string Description { get; set; }
+        public System.DateTime Start { get; set; }
+        public Nullable<System.DateTime> End { get; set; }
+        public string ThemeColor { get; set; }
+        public bool IsFullDay { get; set; }
+        public bool IsShared { get; set; }
+        public string UserId { get; set; }
+
+        //public virtual User User { get; set; }
     }
 }
