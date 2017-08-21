@@ -72,7 +72,7 @@ namespace WinClient
         private void SendMessageButton_Clicked(object sender, RoutedEventArgs e)
         {
             if (NewMessageTextBox.Text.Length > 0) {
-                msgs.Add(new MyMessage() { sender = me, time = new DateTime(), text = NewMessageTextBox.Text });
+                msgs.Add(new MyMessage() { sender = me, time = DateTime.Now, text = NewMessageTextBox.Text });
             }
             NewMessageTextBox.Text = "";
         }

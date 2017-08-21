@@ -35,9 +35,9 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                     <Label Content="Anstehende Ereignisse:"></Label>
-                        <ListView x:Name="EventList">
+                        <ListView x:Name="EventList" >
                             <ListView.View>
-                                <GridView>
+                                <GridView >
                                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Subject}" />
                                     <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Description}"/>
                                     <GridViewColumn Header="Anfang" DisplayMemberBinding="{Binding Start}"/>
@@ -81,7 +81,7 @@
                         <TextBlock Text=" Farbe waehlen:" FontWeight="DemiBold"/>
                         <wpfTool:ColorPicker x:Name="EventColorPicker" Margin="0 5 0 10"/>
 
-                        <CheckBox x:Name="shareCheckBox" Content="Soll mit anderen Nutztern geteilt werden?"/>
+                        <CheckBox x:Name="ShareCheckBox" Content="Soll mit anderen Nutztern geteilt werden?"/>
 
                         <Button x:Name="Submit" Content="Anlegen" />
 

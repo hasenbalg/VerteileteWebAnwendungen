@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinClient
 {
-    class MyEvent
+    public class MyEvent
     {
         public  string Location { get; set; }
 
