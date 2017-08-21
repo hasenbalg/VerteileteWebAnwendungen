@@ -10,11 +10,22 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
-
-      
     </Window.Resources>
     <Grid>
-        <TabControl>
+        <StackPanel>
+            <Grid Margin="0  0 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="BackButton" Content="←" Background="White"  Padding="5" FontSize="20" FontWeight="Bold" Grid.Column="0"/>
+                <TextBlock  x:Name="UserGreeterText" Text="Hallo " Grid.Column="2"/>
+            </Grid>
+
+
+            <TabControl>
             <TabItem Header="Kalender">
                 <!--Kalender-->
                 <Grid>
@@ -75,7 +86,7 @@
                                 <WrapPanel>
                                     <TextBlock Text="{Binding email}"/>
                                     <!--https://stackoverflow.com/a/7000922-->
-                                      <Button Content="Chat" Visibility="{Binding Path=isOnline, Converter={StaticResource BoolToVis}}"/>
+                                      <Button Content="Chat" Visibility="{Binding Path=isOnline, Converter={StaticResource BoolToVis}}" Click="ChatButton_Click"/>
                                     
                                     </WrapPanel>
                                 </DataTemplate>
@@ -85,5 +96,6 @@
                 </StackPanel>
             </TabItem>
         </TabControl>
+        </StackPanel>
     </Grid>
 </Window>

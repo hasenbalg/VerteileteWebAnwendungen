@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace WinClient
 {
-    class MyUser
+    public class MyUser
     {
         public string email { get; set; }
         public bool isOnline { get; set; }
+
+        public override string ToString()
+        {
+            return email;
+        }
     }
 }
