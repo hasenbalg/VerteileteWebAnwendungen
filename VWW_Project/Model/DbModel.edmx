@@ -18,7 +18,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsOnline" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet">
     <Key>
@@ -63,8 +64,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="255" />
-          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" />
           <NavigationProperty Name="Event" Relationship="DbModel.UserEvent" FromRole="User" ToRole="Event" />
+          <Property Name="IsOnline" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -103,7 +105,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.User)">
         <MappingFragment StoreEntitySet="UserSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

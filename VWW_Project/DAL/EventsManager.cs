@@ -26,6 +26,11 @@ namespace DAL
             return db.EventSet;
         }
 
+        public IQueryable<Event> GetAllEventsByUser(string userId)
+        {
+            return db.EventSet.Where(x => x.UserId.Equals(userId));
+        }
+
         public void CreateEvent(Event ev)
         {
             db.EventSet.Add(ev);

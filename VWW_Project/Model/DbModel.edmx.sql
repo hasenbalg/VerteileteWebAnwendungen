@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/20/2017 16:48:56
+-- Date Created: 08/22/2017 17:29:54
 -- Generated from EDMX file: E:\Studium\6. Semester\VWW\Hausarbeit\VWW_Project\Model\DbModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserEvent]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EventSet] DROP CONSTRAINT [FK_UserEvent];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserSet];
+GO
+IF OBJECT_ID(N'[dbo].[EventSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EventSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -30,7 +39,8 @@ GO
 -- Creating table 'UserSet'
 CREATE TABLE [dbo].[UserSet] (
     [Id] nvarchar(255)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL
+    [Username] nvarchar(max)  NOT NULL,
+    [IsOnline] bit  NOT NULL
 );
 GO
 

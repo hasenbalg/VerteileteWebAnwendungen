@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#txtSubject,
+#txtStart,
+#txtEnd,
+#txtDescription,
+#ddThemeColor {
+    max-width: none;
+}

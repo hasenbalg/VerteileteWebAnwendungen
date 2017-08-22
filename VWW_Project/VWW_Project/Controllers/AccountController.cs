@@ -9,23 +9,28 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using VWW_Project.Models;
+using DAL;
+using Model;
 
 namespace VWW_Project.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseDatabaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private UsersManager usersManager;
 
         public AccountController()
         {
+            this.usersManager = new UsersManager(this.Db);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            this.usersManager = new UsersManager(this.Db);
         }
 
         public ApplicationSignInManager SignInManager
@@ -79,6 +84,7 @@ namespace VWW_Project.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    this.usersManager.SetUserOnline(User.Identity.GetUserId());
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -149,12 +155,24 @@ namespace VWW_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            if (this.usersManager.GetAllUsers().Any(x => x.Username.Equals(model.Username)))
+            {
+                ModelState.AddModelError("Username", "Name bereits vergeben.");
+            }
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    User newUser = new User()
+                    {
+                        Id = user.Id,
+                        Username = user.UserName,
+                        IsOnline = true
+                    };
+                    this.usersManager.CreateUser(newUser);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -391,6 +409,7 @@ namespace VWW_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            this.usersManager.SetUserOffline(User.Identity.GetUserId());
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
