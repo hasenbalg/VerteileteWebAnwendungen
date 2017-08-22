@@ -23,6 +23,8 @@ namespace Model
         public string Id { get; set; }
         public string Username { get; set; }
         public bool IsOnline { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Event { get; set; }

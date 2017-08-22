@@ -30,3 +30,11 @@ textarea {
 #ddThemeColor {
     max-width: none;
 }
+.fc-center{
+    width: 50%;
+}
+.fc-center > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

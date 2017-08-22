@@ -23,7 +23,7 @@ namespace DAL
 
         public IQueryable<User> GetAllUsers()
         {
-            return db.UserSet;
+            return db.UserSet.OrderBy(x => x.LastName).ThenBy(x => x.FirstName);
         }
 
         public void CreateUser(User user)

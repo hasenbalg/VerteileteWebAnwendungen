@@ -80,11 +80,10 @@ namespace VWW_Project.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    this.usersManager.SetUserOnline(User.Identity.GetUserId());
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -169,6 +168,8 @@ namespace VWW_Project.Controllers
                     User newUser = new User()
                     {
                         Id = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
                         Username = user.UserName,
                         IsOnline = true
                     };
@@ -288,7 +289,7 @@ namespace VWW_Project.Controllers
         {
             return View();
         }
-
+        /*
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -299,7 +300,7 @@ namespace VWW_Project.Controllers
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
+        */
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
@@ -334,7 +335,7 @@ namespace VWW_Project.Controllers
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
-
+        /*
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
@@ -364,7 +365,8 @@ namespace VWW_Project.Controllers
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
-
+        */
+        /*
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
@@ -402,7 +404,7 @@ namespace VWW_Project.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
+        */
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -413,7 +415,7 @@ namespace VWW_Project.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
+        /*
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
@@ -421,6 +423,7 @@ namespace VWW_Project.Controllers
         {
             return View();
         }
+        */
 
         protected override void Dispose(bool disposing)
         {

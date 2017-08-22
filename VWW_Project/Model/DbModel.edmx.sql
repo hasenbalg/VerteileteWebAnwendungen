@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2017 17:29:54
+-- Date Created: 08/22/2017 21:07:43
 -- Generated from EDMX file: E:\Studium\6. Semester\VWW\Hausarbeit\VWW_Project\Model\DbModel.edmx
 -- --------------------------------------------------
 
@@ -40,7 +40,9 @@ GO
 CREATE TABLE [dbo].[UserSet] (
     [Id] nvarchar(255)  NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
-    [IsOnline] bit  NOT NULL
+    [IsOnline] bit  NOT NULL,
+    [FirstName] nvarchar(max)  NOT NULL,
+    [LastName] nvarchar(max)  NOT NULL
 );
 GO
 

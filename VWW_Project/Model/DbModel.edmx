@@ -20,6 +20,8 @@
     <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsOnline" Type="bit" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet">
     <Key>
@@ -67,6 +69,8 @@
           <Property Name="Username" Type="String" Nullable="false" />
           <NavigationProperty Name="Event" Relationship="DbModel.UserEvent" FromRole="User" ToRole="Event" />
           <Property Name="IsOnline" Type="Boolean" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -107,6 +111,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

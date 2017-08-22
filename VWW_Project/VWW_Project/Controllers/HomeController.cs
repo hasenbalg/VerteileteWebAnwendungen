@@ -13,12 +13,18 @@ namespace VWW_Project.Controllers
     public class HomeController : BaseDatabaseController
     {
         private EventsManager eventsManager;
+        private UsersManager usersManager;
         public HomeController()
         {
             this.eventsManager = new EventsManager(this.Db);
+            this.usersManager = new UsersManager(this.Db);
         }
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated && !this.usersManager.GetUserById(User.Identity.GetUserId()).IsOnline)
+            {
+                this.usersManager.SetUserOnline(User.Identity.GetUserId());
+            }
             return View();
         }
 
@@ -68,8 +74,7 @@ namespace VWW_Project.Controllers
             }
             else
             {
-                //ev.UserId = User.Identity.GetUserId();
-                ev.UserId = "1";
+                ev.UserId = User.Identity.GetUserId();
                 this.eventsManager.CreateEvent(ev);
             }
             status = true;

@@ -1,0 +1,29 @@
+﻿@model Model.User
+
+@{
+    ViewBag.Title = Model.Username;
+}
+
+<h2>@ViewBag.Title</h2>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+    </dl>
+
+    <hr />
+
+    @Html.ActionLink("Passwort ändern", "ChangePassword")
+    <hr />
+</div>
+<p>
+    @Html.ActionLink("Zurück", "Index", "Home", new { }, null)
+</p>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "";
 }
 <h2>Kalender</h2>
 
@@ -12,16 +12,14 @@
                 <h4 class="modal-title"><span id="eventTitle"></span></h4>
             </div>
             <div class="modal-body">
-                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
-                    <span class="glyphicon glyphicon-remove"></span>Löschen
-                </button>
-                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                    <span class="glyphicon glyphicon-pencil"></span>Bearbeiten
-                </button>
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnDelete" class="btn btn-default">Löschen
+                </button>
+                <button id="btnEdit" class="btn btn-default" style="margin-right:5px;">Bearbeiten
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
             </div>
         </div>
     </div>
@@ -137,10 +135,10 @@
                 $('#calendar').fullCalendar({
                     contentHeight: 400,
                     defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
+                    timeFormat: 'HH:mm',
                     header: {
-                        left: 'prev,next today',
-                        center: 'title',
+                        left: 'today',
+                        center: 'prev,title,next',
                         right: 'month,basicWeek,basicDay,agenda'
                     },
                     eventLimit: true,
@@ -151,11 +149,11 @@
                             selectedEvent = calEvent;
                             $('#myModal #eventTitle').text(calEvent.title);
                             var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Start:<b/>' + calEvent.start.format("DD-MMM-YYYY HH-mm a")));
+                            $description.append($('<p/>').html('<b>Start:<b/><br>' + calEvent.start.format("DD/MM/YYYY HH:mm")));
                             if (calEvent.end != null) {
-                                $description.append($('<p/>').html('<b>Ende:<b/>' + calEvent.end.format("DD-MMM-YYYY HH-mm a")));
+                                $description.append($('<p/>').html('<b>Ende:<b/><br>' + calEvent.end.format("DD/MM/YYYY HH:mm")));
                             }
-                            $description.append($('<p/>').html('<b>Beschreibung:<b/>' + calEvent.description));
+                            $description.append($('<p/>').html('<b><b/><br>' + calEvent.description));
                             $('#myModal #pDetails').empty().html($description);
                             $('#myModal').modal();
                         }
