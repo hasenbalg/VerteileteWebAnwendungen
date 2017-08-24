@@ -30,7 +30,8 @@ namespace VWW_Project.Controllers
 
         public JsonResult GetEvents()
         {
-            var events = this.eventsManager.GetAllEventsByUser(User.Identity.GetUserId()).ToList();
+            // get all our events plus all public events
+            var events = this.eventsManager.GetAllEventsByUser(User.Identity.GetUserId()).Union(this.eventsManager.GetAllPublicEvents()).ToList();
             // need to map every entity event to a copy because otherwise json can't serialize properly and ends in circular reference
             var eventsViewModel = new List<Event>();
             foreach(var ev in events)

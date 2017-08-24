@@ -49,15 +49,15 @@ namespace VWW_Project.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Benutzername")]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Passwort")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Eingeloggt bleiben?")]
         public bool RememberMe { get; set; }
     }
 

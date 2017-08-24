@@ -31,6 +31,16 @@ namespace DAL
             return db.EventSet.Where(x => x.UserId.Equals(userId));
         }
 
+        public IQueryable<Event> GetAllPublicEvents()
+        {
+            return db.EventSet.Where(x => x.IsShared);
+        }
+
+        public IQueryable<Event> GetAllUpcomingEventsByUser(string userId)
+        {
+            return GetAllEventsByUser(userId).Union(GetAllPublicEvents()).Where(x => x.Start > DateTime.Now);
+        }
+
         public void CreateEvent(Event ev)
         {
             db.EventSet.Add(ev);
