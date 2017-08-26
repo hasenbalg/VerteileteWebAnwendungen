@@ -27,5 +27,6 @@ namespace Model
     
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Event> EventSet { get; set; }
+        public virtual DbSet<Message> MessageSet1 { get; set; }
     }
 }

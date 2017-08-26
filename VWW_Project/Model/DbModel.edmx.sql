@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2017 21:07:43
--- Generated from EDMX file: E:\Studium\6. Semester\VWW\Hausarbeit\VWW_Project\Model\DbModel.edmx
+-- Date Created: 08/26/2017 10:14:27
+-- Generated from EDMX file: C:\Users\freddi\Source\Repos\VerteileteWebAnwendungen\VWW_Project\Model\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,6 +20,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserEvent]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet] DROP CONSTRAINT [FK_UserEvent];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserMessage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MessageSet1] DROP CONSTRAINT [FK_UserMessage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserMessage1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MessageSet1] DROP CONSTRAINT [FK_UserMessage1];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +36,9 @@ IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[EventSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet];
+GO
+IF OBJECT_ID(N'[dbo].[MessageSet1]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MessageSet1];
 GO
 
 -- --------------------------------------------------
@@ -42,7 +51,8 @@ CREATE TABLE [dbo].[UserSet] (
     [Username] nvarchar(max)  NOT NULL,
     [IsOnline] bit  NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
-    [LastName] nvarchar(max)  NOT NULL
+    [LastName] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -56,7 +66,18 @@ CREATE TABLE [dbo].[EventSet] (
     [ThemeColor] nvarchar(10)  NULL,
     [IsFullDay] bit  NOT NULL,
     [IsShared] bit  NOT NULL,
-    [UserId] nvarchar(255)  NOT NULL
+    [UserId] nvarchar(255)  NOT NULL,
+    [Location] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'MessageSet1'
+CREATE TABLE [dbo].[MessageSet1] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Text] nvarchar(max)  NOT NULL,
+    [Time] datetime  NOT NULL,
+    [FromUserId] nvarchar(255)  NOT NULL,
+    [ToUserId] nvarchar(255)  NOT NULL
 );
 GO
 
@@ -73,6 +94,12 @@ GO
 -- Creating primary key on [Id] in table 'EventSet'
 ALTER TABLE [dbo].[EventSet]
 ADD CONSTRAINT [PK_EventSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MessageSet1'
+ALTER TABLE [dbo].[MessageSet1]
+ADD CONSTRAINT [PK_MessageSet1]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -93,6 +120,36 @@ GO
 CREATE INDEX [IX_FK_UserEvent]
 ON [dbo].[EventSet]
     ([UserId]);
+GO
+
+-- Creating foreign key on [FromUserId] in table 'MessageSet1'
+ALTER TABLE [dbo].[MessageSet1]
+ADD CONSTRAINT [FK_UserMessage]
+    FOREIGN KEY ([FromUserId])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserMessage'
+CREATE INDEX [IX_FK_UserMessage]
+ON [dbo].[MessageSet1]
+    ([FromUserId]);
+GO
+
+-- Creating foreign key on [ToUserId] in table 'MessageSet1'
+ALTER TABLE [dbo].[MessageSet1]
+ADD CONSTRAINT [FK_UserMessage1]
+    FOREIGN KEY ([ToUserId])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserMessage1'
+CREATE INDEX [IX_FK_UserMessage1]
+ON [dbo].[MessageSet1]
+    ([ToUserId]);
 GO
 
 -- --------------------------------------------------

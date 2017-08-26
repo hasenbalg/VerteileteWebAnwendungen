@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{215E8D91-E985-47AD-A6AB-6BC4E3C9E3E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinClient", "WinClient\WinClient.csproj", "{0BB757B8-3FF8-433F-9253-4025C4479AC2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8116163C-E02E-40B4-8D65-95864EEC3AC4} = {8116163C-E02E-40B4-8D65-95864EEC3AC4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VWWWcfService", "VWWWcfService\VWWWcfService.csproj", "{8116163C-E02E-40B4-8D65-95864EEC3AC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{0BB757B8-3FF8-433F-9253-4025C4479AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BB757B8-3FF8-433F-9253-4025C4479AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BB757B8-3FF8-433F-9253-4025C4479AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8116163C-E02E-40B4-8D65-95864EEC3AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8116163C-E02E-40B4-8D65-95864EEC3AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8116163C-E02E-40B4-8D65-95864EEC3AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8116163C-E02E-40B4-8D65-95864EEC3AC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

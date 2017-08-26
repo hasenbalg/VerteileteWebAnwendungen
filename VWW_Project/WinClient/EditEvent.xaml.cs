@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinClient.ServiceReference;
 
 namespace WinClient
 {
@@ -19,52 +20,53 @@ namespace WinClient
     /// </summary>
     public partial class EditEvent : Window
     {
-        private MyEvent _event2Edit;
-        public MyEvent event2Edit
+        public EventData event2Edit
         {
             get
             {
-                return this._event2Edit;
+                return this.event2Edit;
             }
 
             set
             {
-                _event2Edit = value;
-                SubjectTextBox.Text = event2Edit.Subject;
-                DescriptionTextBox.Text = event2Edit.Description;
-                StartDateTimePicker.Value = event2Edit.Start;
-                EndDateTimePicker.Value = event2Edit.End;
-                LocationTextBox.Text = event2Edit.Location;
-                FullDayCheckBox.IsChecked = event2Edit.IsFullDay;
-                ShareCheckBox.IsChecked = event2Edit.IsShared;
-                EventColorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(event2Edit.ThemeColor); 
+                event2Edit = value;
+                SubjectTextBox.Text = event2Edit.subject;
+                DescriptionTextBox.Text = event2Edit.description;
+                StartDateTimePicker.Value = event2Edit.start;
+                EndDateTimePicker.Value = event2Edit.end;
+                LocationTextBox.Text = event2Edit.location;
+                FullDayCheckBox.IsChecked = event2Edit.isFullDay;
+                ShareCheckBox.IsChecked = event2Edit.isShared;
+                EventColorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(event2Edit.themeColor); 
 
                 
             }
         }
 
-        private MyUser _me;
-        public MyUser me
+        public UserData me
         {
             get
             {
-                return this._me;
+                return this.me;
             }
 
             set
             {
-                _me = value;
-                UserGreeterText.Text += _me.email;
+                me = value;
+                UserGreeterText.Text += me.userName;
             }
         }
 
         public MainWindow mainWindow { get; internal set; }
+        public Service1Client clnt { get; private set; }
 
         public EditEvent()
         {
             InitializeComponent();
 
             Submit.AddHandler(Button.ClickEvent, new RoutedEventHandler(Submit_Clicked));
+
+            clnt = new Service1Client();
 
         }
 
@@ -78,29 +80,22 @@ namespace WinClient
 
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                event2Edit = new MyEvent()
-                {
-                    Subject = this.SubjectTextBox.Text,
-                    Description = this.DescriptionTextBox.Text,
-                    Start = (DateTime)this.StartDateTimePicker.Value,
-                    End = this.EndDateTimePicker.Value,
-                    Location = this.LocationTextBox.Text,
-                    IsFullDay = (this.FullDayCheckBox.IsChecked ?? true) ? true : false,
-                    IsShared = (this.ShareCheckBox.IsChecked ?? true) ? true : false,
-                    ThemeColor = this.EventColorPicker.SelectedColor.ToString() //https://stackoverflow.com/a/2109938
 
-                };
+            clnt.EditEvent( new EventData()
+                {
+                    subject = this.SubjectTextBox.Text,
+                    description = this.DescriptionTextBox.Text,
+                   start = (DateTime)this.StartDateTimePicker.Value,
+                    end = (DateTime)this.EndDateTimePicker.Value,
+                    location = this.LocationTextBox.Text,
+                    isFullDay = (this.FullDayCheckBox.IsChecked ?? true) ? true : false,
+                    isShared = (this.ShareCheckBox.IsChecked ?? true) ? true : false,
+                    themeColor = this.EventColorPicker.SelectedColor.ToString() //https://stackoverflow.com/a/2109938
+
+                });
                 mainWindow.UpdateCalendar();
                 this.Close();
-            }
-            catch (InvalidOperationException exc)
-            {
-                ErrorTextBlock.Visibility = Visibility.Visible;
-            }
-
-
+           
         }
 
         private void UntilWhenCheckBox_Checked(object sender, RoutedEventArgs e)

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinClient.ServiceReference;
 
 namespace WinClient
 {
@@ -21,40 +22,17 @@ namespace WinClient
     public partial class Chat : Window
     {
         
-        private MyUser _me;
-        public MyUser me
-        {
-            get
-            {
-                return this._me;
-            }
+    
+        public UserData me{ get; set; }
 
-            set
-            {
-                _me = value;
-                UserGreeterText.Text += _me.email;
-            }
-        }
 
-        private MyUser _other;
+        public UserData other { get; set; }
 
-        public MyUser other
-        {
-            get
-            {
-                return this._other;
-            }
 
-            set
-            {
-                _other = value;
-                OtherNameTextBox.Text += _other.email;
-            }
-        }
+        List<MessageData> msgs;
 
-        //public List<MyMessage> msgs;
+        private Service1Client clnt;
 
-        public ObservableCollection<MyMessage> msgs = new ObservableCollection<MyMessage>();
 
         public Chat()
         {
@@ -64,17 +42,23 @@ namespace WinClient
             SendMessageButton.AddHandler(Button.ClickEvent, new RoutedEventHandler(SendMessageButton_Clicked));
 
 
-            GenerateMessages();
+            clnt = new Service1Client();
+
+            PutMsgsInView();
 
             
         }
 
+        private void PutMsgsInView()
+        {
+            msgs = clnt.GetAllMessages(me.id, other.id).ToList();
+        }
+
         private void SendMessageButton_Clicked(object sender, RoutedEventArgs e)
         {
-            if (NewMessageTextBox.Text.Length > 0) {
-                msgs.Add(new MyMessage() { sender = me, time = DateTime.Now, text = NewMessageTextBox.Text });
-            }
-            NewMessageTextBox.Text = "";
+            msgs = clnt.SendMessage(new MessageData() { FromUserId = me.id, ToUserId = other.id, text = NewMessageTextBox.Text }).ToList();
+            //todo:
+            // update message list in view
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
@@ -84,16 +68,6 @@ namespace WinClient
             this.Close();
         }
 
-        private void GenerateMessages()
-        {
-            msgs = new ObservableCollection<MyMessage>(); //https://stackoverflow.com/a/4489112
-
-            msgs.Add(new MyMessage() { sender = other, time = new DateTime(), text = "nachicht1" });
-            msgs.Add(new MyMessage() { sender = other, time = new DateTime(), text = "nachicht2" });
-            msgs.Add(new MyMessage() { sender = other, time = new DateTime(), text = "nachicht3" });
-            msgs.Add(new MyMessage() { sender = other, time = new DateTime(), text = "nachicht4" });
-
-            MessagesListBox.ItemsSource = msgs;
-        }
+       
     }
 }

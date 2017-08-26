@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:56466/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:56466/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:56466/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/VWWWcfService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOnlineUsers" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllOnlineUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOnlineUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllEvents_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllEvents" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllEvents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllEventsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddEvent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditEvent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMessages" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Login" message="tns:IService1_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LoginResponse" message="tns:IService1_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllUsers" message="tns:IService1_GetAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllUsersResponse" message="tns:IService1_GetAllUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllOnlineUsers" message="tns:IService1_GetAllOnlineUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllOnlineUsersResponse" message="tns:IService1_GetAllOnlineUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllEvents">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllEvents" message="tns:IService1_GetAllEvents_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllEventsResponse" message="tns:IService1_GetAllEvents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddEvent" message="tns:IService1_AddEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddEventResponse" message="tns:IService1_AddEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditEvent" message="tns:IService1_EditEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditEventResponse" message="tns:IService1_EditEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllMessages" message="tns:IService1_GetAllMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllMessagesResponse" message="tns:IService1_GetAllMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendMessage" message="tns:IService1_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendMessageResponse" message="tns:IService1_SendMessage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IService1/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOnlineUsers">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllOnlineUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllEvents">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllEvents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEvent">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditEvent">
+      <soap:operation soapAction="http://tempuri.org/IService1/EditEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMessages">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:56466/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

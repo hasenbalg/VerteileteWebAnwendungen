@@ -8,9 +8,18 @@
   <EntityContainer Name="DbModelStoreContainer">
     <EntitySet Name="UserSet" EntityType="DbModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet" EntityType="DbModel.Store.EventSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MessageSet1" EntityType="DbModel.Store.MessageSet1" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserEvent" Association="DbModel.Store.UserEvent">
       <End Role="User" EntitySet="UserSet" />
       <End Role="Event" EntitySet="EventSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserMessage" Association="DbModel.Store.UserMessage">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Message" EntitySet="MessageSet1" />
+    </AssociationSet>
+    <AssociationSet Name="UserMessage1" Association="DbModel.Store.UserMessage1">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Message" EntitySet="MessageSet1" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
@@ -22,6 +31,7 @@
     <Property Name="IsOnline" Type="bit" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet">
     <Key>
@@ -36,6 +46,17 @@
     <Property Name="IsFullDay" Type="bit" Nullable="false" />
     <Property Name="IsShared" Type="bit" Nullable="false" />
     <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MessageSet1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="FromUserId" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="ToUserId" Type="nvarchar" Nullable="false" MaxLength="255" />
   </EntityType>
   <Association Name="UserEvent">
     <End Role="User" Type="DbModel.Store.UserSet" Multiplicity="1" />
@@ -46,6 +67,30 @@
       </Principal>
       <Dependent Role="Event">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserMessage">
+    <End Role="User" Type="DbModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Message" Type="DbModel.Store.MessageSet1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserMessage1">
+    <End Role="User" Type="DbModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Message" Type="DbModel.Store.MessageSet1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="ToUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -60,6 +105,15 @@
             <End Role="User" EntitySet="UserSet" />
             <End Role="Event" EntitySet="EventSet" />
           </AssociationSet>
+          <EntitySet Name="MessageSet1" EntityType="DbModel.Message" />
+          <AssociationSet Name="UserMessage" Association="DbModel.UserMessage">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Message" EntitySet="MessageSet1" />
+          </AssociationSet>
+          <AssociationSet Name="UserMessage1" Association="DbModel.UserMessage1">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Message" EntitySet="MessageSet1" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -71,6 +125,9 @@
           <Property Name="IsOnline" Type="Boolean" Nullable="false" />
           <Property Name="FirstName" Type="String" Nullable="false" />
           <Property Name="LastName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Message" Relationship="DbModel.UserMessage" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Message1" Relationship="DbModel.UserMessage1" FromRole="User" ToRole="Message" />
+          <Property Name="Password" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -86,6 +143,7 @@
           <Property Name="IsShared" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="DbModel.UserEvent" FromRole="Event" ToRole="User" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="255" />
+          <Property Name="Location" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="UserEvent">
           <End Type="DbModel.User" Role="User" Multiplicity="1" />
@@ -96,6 +154,42 @@
             </Principal>
             <Dependent Role="Event">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserMessage" FromRole="Message" ToRole="User" />
+          <Property Name="FromUserId" Type="String" Nullable="false" MaxLength="255" />
+          <NavigationProperty Name="User1" Relationship="DbModel.UserMessage1" FromRole="Message" ToRole="User" />
+          <Property Name="ToUserId" Type="String" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <Association Name="UserMessage">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="FromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserMessage1">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ToUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -113,6 +207,7 @@
           <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -128,6 +223,18 @@
           <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
           <ScalarProperty Name="IsShared" ColumnName="IsShared" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MessageSet1">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Message)">
+        <MappingFragment StoreEntitySet="MessageSet1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

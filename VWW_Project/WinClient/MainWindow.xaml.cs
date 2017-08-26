@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinClient.ServiceReference;
 
 namespace WinClient
 {
@@ -21,26 +22,13 @@ namespace WinClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<MyEvent> eventList = new ObservableCollection<MyEvent>();
-        ObservableCollection<MyUser> userList = new ObservableCollection<MyUser>();
+        List<EventData> eventList = new List<EventData>();
+        List<UserData> userList = new List<UserData> ();
+        
+        public UserData me { get; set; }
+        private Service1Client clnt;
 
 
-        private MyUser _me;
-
-        public MyUser me
-        {
-            get
-            {
-                return this._me;
-            }
-
-            set
-            {
-                _me = value;
-                UserGreeterText.Text += _me.email;
-                userList.Add(new MyUser() {email = _me.email, isOnline = true, id = userList.Count() });
-            }
-        }
 
 
         public MainWindow()
@@ -57,32 +45,8 @@ namespace WinClient
             EventList.AddHandler(ListView.MouseDoubleClickEvent, new RoutedEventHandler(EventList_Clicked));
 
 
-            GenerateDummyData();
 
-            
-           
-        }
-
-       
-
-
-
-
-        private void GenerateDummyData()
-        {
-            eventList.Add(new MyEvent() { Subject = "Baden gehen", Description = "Wasser einlassen, baden, abtrocknen", Start = new DateTime(), End = new DateTime(), Location = "Badezimmer", IsFullDay = false, IsShared = true, ThemeColor = "#f00", Id = userList.Count() });
-            eventList.Add(new MyEvent() { Subject = "Duschen gehen", Description = "Fast wie baden, nur mit Wasser von oben", Start = new DateTime(), End = new DateTime(), Location = "Badezimmer", IsFullDay = false, IsShared = true, ThemeColor = "#ff0", Id = userList.Count() });
-            eventList.Add(new MyEvent() { Subject = "Zaehne putzen gehen", Description = "Fast wie Duschen, nur mit Zahnbuerste", Start = new DateTime(), End = new DateTime(), Location = "Badezimmer", IsFullDay = false, IsShared = true, ThemeColor = "#f00", Id = userList.Count() });
-            eventList.Add(new MyEvent() { Subject = "Fruehstuecken", Description = "fast wie  zaehneputzen, nur mit essen", Start = new DateTime(), End = new DateTime(), Location = "Kueche", IsFullDay = false, IsShared = true, ThemeColor = "#f00", Id = userList.Count() });
-            eventList.Add(new MyEvent() { Subject = "nachhause gehen", Description = "den anderen Taetigkeiten unaehnlich", Start = new DateTime(), End = new DateTime(), Location = "Iregendwo", IsFullDay = false, IsShared = true, ThemeColor = "#f00", Id = userList.Count() });
-            EventList.ItemsSource = eventList;
-
-
-            userList.Add(new MyUser() { email = "hoho@haha.de", isOnline = true, id = userList.Count() });
-            userList.Add(new MyUser() { email = "huhu@haha.de", isOnline = true, id = userList.Count() });
-            userList.Add(new MyUser() { email = "haha@haha.de", isOnline = true, id = userList.Count() });
-            userList.Add(new MyUser() { email = "hehe@haha.de", isOnline = true, id = userList.Count() });
-            UserList.ItemsSource = userList;
+            clnt = new Service1Client();
         }
 
         public void UpdateCalendar() {
@@ -99,26 +63,22 @@ namespace WinClient
 
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                eventList.Add(new MyEvent()
-                {
-                    Subject = this.SubjectTextBox.Text,
-                    Description = this.DescriptionTextBox.Text,
-                    Start = (DateTime)this.StartDateTimePicker.Value,
-                    End = this.EndDateTimePicker.Value,
-                    Location = this.LocationTextBox.Text,
-                    IsFullDay = (this.FullDayCheckBox.IsChecked ?? true) ? true : false,
-                    IsShared = (this.ShareCheckBox.IsChecked ?? true) ? true : false,
-                    ThemeColor = this.EventColorPicker.SelectedColor.ToString(),
-                    UserId = userList.Count().ToString()
+            
 
+            eventList = clnt.AddEvent(new EventData() {
+                subject = this.SubjectTextBox.Text,
+                description = this.DescriptionTextBox.Text,
+                start = (DateTime)this.StartDateTimePicker.Value,
+                end = (DateTime)this.EndDateTimePicker.Value,
+                location = this.LocationTextBox.Text,
+                isFullDay = (this.FullDayCheckBox.IsChecked ?? true) ? true : false,
+                isShared = (this.ShareCheckBox.IsChecked ?? true) ? true : false,
+                themeColor = this.EventColorPicker.SelectedColor.ToString(),
+                userId = me.id
+            }).ToList();
 
-                });
-            }
-            catch (InvalidOperationException exc) {
-                ErrorTextBlock.Visibility = Visibility.Visible;
-            }
+            //todo:
+            //Update list in window
 
             
         }
@@ -159,7 +119,7 @@ namespace WinClient
 
         private void EventList_Clicked(object sender, RoutedEventArgs e)
         {
-            var item = ((MyEvent)((FrameworkElement)e.OriginalSource).DataContext);//https://stackoverflow.com/a/4888542
+            var item = ((EventData)((FrameworkElement)e.OriginalSource).DataContext);//https://stackoverflow.com/a/4888542
             if (item != null)
             {
                 EditEvent eew = new EditEvent() { me = me, event2Edit = item, mainWindow = this };
@@ -171,7 +131,7 @@ namespace WinClient
         {
             //https://stackoverflow.com/a/7128002
             Button button = (Button)sender;
-            MyUser user = (MyUser)button.DataContext;
+            UserData user = (UserData)button.DataContext;
             Chat cw = new Chat() { other = user, me = me };
             cw.Show();
             this.Close();

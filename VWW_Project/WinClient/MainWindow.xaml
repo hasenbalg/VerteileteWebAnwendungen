@@ -38,14 +38,14 @@
                         <ListView x:Name="EventList" >
                             <ListView.View>
                                 <GridView >
-                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Subject}" />
-                                    <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Description}"/>
-                                    <GridViewColumn Header="Anfang" DisplayMemberBinding="{Binding Start}"/>
-                                    <GridViewColumn Header="Ende" DisplayMemberBinding="{Binding End}"/>
-                                    <GridViewColumn Header="Ort" DisplayMemberBinding="{Binding Location}"/>
-                                    <GridViewColumn Header="Dauert den ganzen Tag" DisplayMemberBinding="{Binding IsFullDay}"/>
-                                    <GridViewColumn Header="Geteilt" DisplayMemberBinding="{Binding IsShared}"/>
-                                    <GridViewColumn Header="Farbe" DisplayMemberBinding="{Binding ThemeColor}"/>
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding subject}" />
+                                    <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding description}"/>
+                                    <GridViewColumn Header="Anfang" DisplayMemberBinding="{Binding start}"/>
+                                    <GridViewColumn Header="Ende" DisplayMemberBinding="{Binding end}"/>
+                                    <GridViewColumn Header="Ort" DisplayMemberBinding="{Binding location}"/>
+                                    <GridViewColumn Header="Dauert den ganzen Tag" DisplayMemberBinding="{Binding isFullDay}"/>
+                                    <GridViewColumn Header="Geteilt" DisplayMemberBinding="{Binding isShared}"/>
+                                    <GridViewColumn Header="Farbe" DisplayMemberBinding="{Binding themeColor}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>

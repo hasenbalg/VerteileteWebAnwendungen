@@ -12,19 +12,15 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class Message
     {
         public int Id { get; set; }
-        public string Subject { get; set; }
-        public string Description { get; set; }
-        public System.DateTime Start { get; set; }
-        public Nullable<System.DateTime> End { get; set; }
-        public string ThemeColor { get; set; }
-        public bool IsFullDay { get; set; }
-        public bool IsShared { get; set; }
-        public string UserId { get; set; }
-        public string Location { get; set; }
+        public string Text { get; set; }
+        public System.DateTime Time { get; set; }
+        public string FromUserId { get; set; }
+        public string ToUserId { get; set; }
     
         public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }
