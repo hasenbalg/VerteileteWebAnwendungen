@@ -24,20 +24,23 @@ namespace VWWWcfService
             return userList;
         }
 
-        public List<UserData> GetAllOnlineUsers()
+        public List<UserData> GetOnlineUsers()
         {
             return GetAllUsers().Where(u => u.isOnline == true).ToList();
         }
 
-        public UserData Login(UserData me)
+        public UserData Login(string userName, string password)
         {
-            return GetAllUsers().Where(u => u.userName == me.userName).First();
+
+            //GetAllUsers().Where(u => u.userName == userName && u.password == password).First();
+            return GetAllUsers().Where(u => u.userName == userName).First();
         }
 
 
         //Event
         public List<EventData> GetAllEvents(int meId)
         {
+            Console.WriteLine("schicke alle events von "  + meId);
             List<EventData> eventList = new List<EventData>();
 
             eventList.Add(new EventData() {subject = "Zaehne putzen", description = "Alle Zaehne werden geputzt", start = DateTime.Now, end = DateTime.Now.AddHours(1), isFullDay = false, themeColor = "#f00", userId = 1, id = 1 });
@@ -46,13 +49,14 @@ namespace VWWWcfService
             eventList.Add(new EventData() {subject = "Schuhe putzen", description = "Alle Schuhe werden geputzt", start = DateTime.Now, end = DateTime.Now.AddHours(1), isFullDay = false, themeColor = "#f00", userId = 1, id = 4 });
             eventList.Add(new EventData() {subject = "Rest putzen", description = "Der ganze Scheiss wird geputzt", start = DateTime.Now, end = DateTime.Now.AddHours(1), isFullDay = false, themeColor = "#f00", userId = 1, id = 5 });
 
-            return eventList.Where(e => e.userId == meId).ToList();
+            return eventList.Where(e => e.userId == meId).OrderBy(e => e.start).ToList();
         }
 
         public List<EventData> AddEvent(EventData newEvent)
         {
             List<EventData> eventList = GetAllEvents(newEvent.userId);
-
+            eventList.Add(newEvent);
+            Console.WriteLine(eventList.Count);
             return eventList;
         }
 
@@ -77,7 +81,7 @@ namespace VWWWcfService
             messageList.Add(new MessageData() {text = "hyhy", time = DateTime.Now, FromUserId = 2, ToUserId = 1 });
             messageList.Add(new MessageData() {text = "chch", time = DateTime.Now, FromUserId = 3, ToUserId = 2 });
 
-            return messageList.Where(m => m.ToUserId == meId || m.FromUserId == otherId).ToList();
+            return messageList.Where(m => m.ToUserId == meId || m.FromUserId == otherId).OrderBy(m => m.time).ToList();
         }
 
         public List<MessageData> SendMessage(MessageData msg)

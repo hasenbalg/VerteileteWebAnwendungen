@@ -14,13 +14,13 @@ namespace VWWWcfService
     {
         //User
         [OperationContract]
-        UserData Login(UserData user);
+        UserData Login(string userName, string password);
 
         [OperationContract]
         List<UserData> GetAllUsers();
 
         [OperationContract]
-        List<UserData> GetAllOnlineUsers();
+        List<UserData> GetOnlineUsers();
 
         
 
