@@ -29,10 +29,10 @@ namespace Host
         void AddUser(string userName, string password, string firstName, string lastname);
 
         [OperationContract(IsOneWay = true)]
-        void EditUser(string userName, string password, string firstName, string lastname, int id);
+        void EditUser(string userName, string password, string firstName, string lastname, string id);
 
         [OperationContract(IsOneWay = true)]
-        void DeleteUser(int id);
+        void DeleteUser(string id);
 
 
         //Event
@@ -78,7 +78,7 @@ namespace Host
     public class UserData
     {
         [DataMember]
-        public int id { get; set; }
+        public string id { get; set; }
 
         [DataMember]
         public string firstName { get; set; }
