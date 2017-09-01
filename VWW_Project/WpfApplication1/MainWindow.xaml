@@ -5,25 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-         xmlns:g="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:g="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Closing="MainWindow_Closing"
         Title="MainWindow"  SizeToContent="WidthAndHeight">
 
-    <StackPanel>
-        <StackPanel x:Name="logInPanel">
+    <Window.Resources>
+        <Style x:Key="buttonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="MaxWidth" Value="150"/>
+        </Style>
+
+        <Style x:Key="listViewItemStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10 0"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel  Margin="10">
+        <StackPanel x:Name="logInPanel"  Margin="10">
             <Label Content="Username"/>
             <TextBox x:Name="userNameTextBox"/>
             <Label Content="Passwort"/>
             <PasswordBox x:Name="passwordBox"/>
-            <Button Content="Login" x:Name="logInButton" Click="logInButton_Click"/>
+            <Button Content="Login" x:Name="logInButton" Click="logInButton_Click" Style="{StaticResource buttonStyle}" />
+            <TextBlock x:Name="errorLoginTextBlock" Text="Benutzername oder Passwort falsch" Visibility="Collapsed"/>
         </StackPanel>
 
-        <StackPanel x:Name="greetingPanel">
-            <Button x:Name="backButton" Content="Zurück" Click="backButton_Click"/>
+        <StackPanel x:Name="greetingPanel" Margin="10">
+            <Button x:Name="logOutButton" Content="Ausloggen" Click="logOutButton_Click" Style="{StaticResource buttonStyle}" />
             <TextBlock x:Name="greetingTextBlock" Text="Hallo "/>
         </StackPanel>
 
 
-        <Grid x:Name="mainGrid">
+        <Grid x:Name="mainGrid"  Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -31,19 +44,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListView x:Name="eventsListView" Grid.Column="0">
+            <ListView x:Name="eventsListView" Grid.Column="0" MouseDoubleClick="eventsListView_MouseDoubleClick"  Margin="10">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="{Binding subject}"  />
-                            <TextBlock Text="{Binding description}"  />
-                            <TextBlock Text="{Binding location}"  />
-                            <TextBlock Text="{Binding start}"  />
-                            <TextBlock Text="{Binding isEntireDay}"  />
-                            <TextBlock Text="{Binding end}"  />
-                            <TextBlock Text="{Binding color}"  />
-                            <TextBlock Text="{Binding isShared}"  />
+                        <WrapPanel Background="{Binding color}">
+                            <TextBlock Text="{Binding subject}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding description}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding location}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding start}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding isEntireDay}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding end}" Style="{StaticResource listViewItemStyle}" />
+                            <TextBlock Text="{Binding isShared}" Style="{StaticResource listViewItemStyle}" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -52,7 +64,7 @@
 
 
 
-            <StackPanel x:Name="newEventPanel" Grid.Column="1">
+            <StackPanel x:Name="newEventPanel" Grid.Column="1"  Margin="10">
                 <Label Content="Was?"/>
                 <TextBox x:Name="subjectTextBox"/>
 
@@ -75,11 +87,15 @@
 
                 <CheckBox x:Name="isShared" Content="teilen"/>
 
-                <Button x:Name="addEvent" Content="Termin hinzufügen" Click="addEvent_Click"/>
+                <TextBlock x:Name="idTextBlock" Visibility="Collapsed"/>
+
+                <Button x:Name="addEventButton" Content="Termin hinzufügen" Click="addEventButton_Click" Style="{StaticResource buttonStyle}" />
+                <Button x:Name="editEventButton" Content="Termin ändern" Click="editEventButton_Click" Style="{StaticResource buttonStyle}" />
+                <Button x:Name="cancelEditEventButton" Content="Abbrechen" Click="cancelEditEventButton_Click" Style="{StaticResource buttonStyle}" />
 
             </StackPanel>
 
-            <ListView x:Name="usersListView" Grid.Column="2">
+            <ListView x:Name="usersListView" Grid.Column="2"  Margin="10">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -91,10 +107,10 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <StackPanel Grid.Column="3">
+            <StackPanel Grid.Column="3"  Margin="10">
                 <RichTextBox x:Name="chatRichTextBox" Height=" 300"></RichTextBox>
                 <TextBox x:Name="newMessagetxtBox"/>
-                <Button x:Name="sendNewMessageButton" Content="Senden" Click="sendNewMessageButton_Click"/>
+                <Button x:Name="sendNewMessageButton" Content="Senden" Click="sendNewMessageButton_Click" Style="{StaticResource buttonStyle}" />
             </StackPanel>
 
         </Grid>

@@ -26,7 +26,7 @@ namespace WpfApplication1.Proxy {
         private string firstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
+        private string idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string lastNameField;
@@ -61,12 +61,12 @@ namespace WpfApplication1.Proxy {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
+        public string id {
             get {
                 return this.idField;
             }
             set {
-                if ((this.idField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
                     this.idField = value;
                     this.RaisePropertyChanged("id");
                 }
@@ -159,7 +159,7 @@ namespace WpfApplication1.Proxy {
         private string subjectField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int userIdField;
+        private string userIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -289,12 +289,12 @@ namespace WpfApplication1.Proxy {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int userId {
+        public string userId {
             get {
                 return this.userIdField;
             }
             set {
-                if ((this.userIdField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.userIdField, value) != true)) {
                     this.userIdField = value;
                     this.RaisePropertyChanged("userId");
                 }
@@ -321,6 +321,12 @@ namespace WpfApplication1.Proxy {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/LogIn", ReplyAction="http://tempuri.org/IChatService/LogInResponse")]
         System.Threading.Tasks.Task<bool> LogInAsync(string userName, string password);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/LogOut", ReplyAction="http://tempuri.org/IChatService/LogOutResponse")]
+        void LogOut();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/LogOut", ReplyAction="http://tempuri.org/IChatService/LogOutResponse")]
+        System.Threading.Tasks.Task LogOutAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetUser", ReplyAction="http://tempuri.org/IChatService/GetUserResponse")]
         WpfApplication1.Proxy.UserData GetUser(string userName);
         
@@ -346,22 +352,22 @@ namespace WpfApplication1.Proxy {
         System.Threading.Tasks.Task AddUserAsync(string userName, string password, string firstName, string lastname);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditUser")]
-        void EditUser(string userName, string password, string firstName, string lastname, int id);
+        void EditUser(string userName, string password, string firstName, string lastname, string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditUser")]
-        System.Threading.Tasks.Task EditUserAsync(string userName, string password, string firstName, string lastname, int id);
+        System.Threading.Tasks.Task EditUserAsync(string userName, string password, string firstName, string lastname, string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/DeleteUser")]
-        void DeleteUser(int id);
+        void DeleteUser(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/DeleteUser")]
-        System.Threading.Tasks.Task DeleteUserAsync(int id);
+        System.Threading.Tasks.Task DeleteUserAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/AddEvent")]
-        void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared);
+        void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/AddEvent")]
-        System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared);
+        System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetEvent", ReplyAction="http://tempuri.org/IChatService/GetEventResponse")]
         WpfApplication1.Proxy.EventData GetEvent(int id);
@@ -370,16 +376,16 @@ namespace WpfApplication1.Proxy {
         System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData> GetEventAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetEventsByUser", ReplyAction="http://tempuri.org/IChatService/GetEventsByUserResponse")]
-        WpfApplication1.Proxy.EventData[] GetEventsByUser(int userId);
+        WpfApplication1.Proxy.EventData[] GetEventsByUser(string userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetEventsByUser", ReplyAction="http://tempuri.org/IChatService/GetEventsByUserResponse")]
-        System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData[]> GetEventsByUserAsync(int userId);
+        System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData[]> GetEventsByUserAsync(string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditEvent")]
-        void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id);
+        void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditEvent")]
-        System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id);
+        System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/DeleteEvent")]
         void DeleteEvent(int id);
@@ -449,6 +455,14 @@ namespace WpfApplication1.Proxy {
             return base.Channel.LogInAsync(userName, password);
         }
         
+        public void LogOut() {
+            base.Channel.LogOut();
+        }
+        
+        public System.Threading.Tasks.Task LogOutAsync() {
+            return base.Channel.LogOutAsync();
+        }
+        
         public WpfApplication1.Proxy.UserData GetUser(string userName) {
             return base.Channel.GetUser(userName);
         }
@@ -481,28 +495,28 @@ namespace WpfApplication1.Proxy {
             return base.Channel.AddUserAsync(userName, password, firstName, lastname);
         }
         
-        public void EditUser(string userName, string password, string firstName, string lastname, int id) {
+        public void EditUser(string userName, string password, string firstName, string lastname, string id) {
             base.Channel.EditUser(userName, password, firstName, lastname, id);
         }
         
-        public System.Threading.Tasks.Task EditUserAsync(string userName, string password, string firstName, string lastname, int id) {
+        public System.Threading.Tasks.Task EditUserAsync(string userName, string password, string firstName, string lastname, string id) {
             return base.Channel.EditUserAsync(userName, password, firstName, lastname, id);
         }
         
-        public void DeleteUser(int id) {
+        public void DeleteUser(string id) {
             base.Channel.DeleteUser(id);
         }
         
-        public System.Threading.Tasks.Task DeleteUserAsync(int id) {
+        public System.Threading.Tasks.Task DeleteUserAsync(string id) {
             return base.Channel.DeleteUserAsync(id);
         }
         
-        public void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared) {
-            base.Channel.AddEvent(subject, description, location, start, isEntireDay, end, color, isShared);
+        public void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
+            base.Channel.AddEvent(subject, description, location, start, isEntireDay, end, color, isShared, userId);
         }
         
-        public System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared) {
-            return base.Channel.AddEventAsync(subject, description, location, start, isEntireDay, end, color, isShared);
+        public System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
+            return base.Channel.AddEventAsync(subject, description, location, start, isEntireDay, end, color, isShared, userId);
         }
         
         public WpfApplication1.Proxy.EventData GetEvent(int id) {
@@ -513,20 +527,20 @@ namespace WpfApplication1.Proxy {
             return base.Channel.GetEventAsync(id);
         }
         
-        public WpfApplication1.Proxy.EventData[] GetEventsByUser(int userId) {
+        public WpfApplication1.Proxy.EventData[] GetEventsByUser(string userId) {
             return base.Channel.GetEventsByUser(userId);
         }
         
-        public System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData[]> GetEventsByUserAsync(int userId) {
+        public System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData[]> GetEventsByUserAsync(string userId) {
             return base.Channel.GetEventsByUserAsync(userId);
         }
         
-        public void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id) {
-            base.Channel.EditEvent(subject, description, location, start, isEntireDay, end, color, isShared, id);
+        public void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
+            base.Channel.EditEvent(subject, description, location, start, isEntireDay, end, color, isShared, id, userId);
         }
         
-        public System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id) {
-            return base.Channel.EditEventAsync(subject, description, location, start, isEntireDay, end, color, isShared, id);
+        public System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
+            return base.Channel.EditEventAsync(subject, description, location, start, isEntireDay, end, color, isShared, id, userId);
         }
         
         public void DeleteEvent(int id) {

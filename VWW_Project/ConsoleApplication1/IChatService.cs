@@ -17,6 +17,9 @@ namespace Host
         bool LogIn(string userName, string password);
 
         [OperationContract]
+        void LogOut();
+
+        [OperationContract]
         UserData GetUser(string userName);
 
         [OperationContract]
@@ -44,13 +47,14 @@ namespace Host
             bool isEntireDay,
             DateTime end,
             string color,
-            bool isShared);
+            bool isShared,
+            string userId);
 
         [OperationContract]
         EventData GetEvent(int id);
 
         [OperationContract]
-        List<EventData> GetEventsByUser(int userId);
+        List<EventData> GetEventsByUser(string userId);
 
         [OperationContract(IsOneWay = true)]
         void EditEvent(string subject,
@@ -60,7 +64,9 @@ namespace Host
             bool isEntireDay,
             DateTime end,
             string color,
-            bool isShared, int id);
+            bool isShared,
+            int id,
+            string userId);
 
         [OperationContract(IsOneWay = true)]
         void DeleteEvent(int id);
@@ -121,7 +127,7 @@ namespace Host
         public bool isShared { get; set; }
 
         [DataMember]
-        public int userId { get; set; }
+        public string userId { get; set; }
 
         [DataMember]
         public int id { get; set; }

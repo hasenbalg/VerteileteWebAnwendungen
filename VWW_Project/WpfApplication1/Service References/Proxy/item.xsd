@@ -16,6 +16,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="LogOut">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogOutResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetUser">
     <xs:complexType>
       <xs:sequence>
@@ -71,14 +81,14 @@
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="lastname" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -93,6 +103,7 @@
         <xs:element minOccurs="0" name="end" type="xs:dateTime" />
         <xs:element minOccurs="0" name="color" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="isShared" type="xs:boolean" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -113,7 +124,7 @@
   <xs:element name="GetEventsByUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="userId" type="xs:int" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -136,6 +147,7 @@
         <xs:element minOccurs="0" name="color" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="isShared" type="xs:boolean" />
         <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 
 using Xceed.Wpf.Toolkit;
 using WpfApplication1.Proxy;
+using System.Windows.Media;
+using System.ComponentModel;
 
 namespace WpfApplication1
 {
@@ -36,7 +38,6 @@ namespace WpfApplication1
             userNameTextBox.Text = "fr";
             passwordBox.Password = "huhu";
 
-            //Background = Brushes.Green;
 
 
             mainGrid.Visibility = Visibility.Collapsed;
@@ -44,6 +45,25 @@ namespace WpfApplication1
 
             context = new InstanceContext(new MyCallback(this));
             server = new Proxy.ChatServiceClient(context);
+
+            ResetNewEventPanel();
+        }
+
+        private void ResetNewEventPanel()
+        {
+            editEventButton.Visibility = Visibility.Collapsed;
+            addEventButton.Visibility = Visibility.Visible;
+            cancelEditEventButton.Visibility = Visibility.Collapsed;
+
+            subjectTextBox.Text = string.Empty;
+            descriptionTextBox.Text = string.Empty;
+            locationTextBox.Text = string.Empty;
+            startDateTimePicker.Value = DateTime.Now;
+            isEntireDay.IsChecked = false;
+            endDateTimePicker.Value = DateTime.Now.AddHours(1);
+            colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString("#f0f");
+            isShared.IsChecked = false;
+            idTextBlock.Text = string.Empty;
         }
 
         private void logInButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +73,7 @@ namespace WpfApplication1
             var username = userNameTextBox.Text;
             if (server.LogIn(userNameTextBox.Text, passwordBox.Password))
             {
-
+                Console.WriteLine("Login ok");
                 server.Join(userNameTextBox.Text);
                 mainGrid.Visibility = Visibility.Visible;
                 greetingPanel.Visibility = Visibility.Visible;
@@ -67,6 +87,9 @@ namespace WpfApplication1
                 UpdateCalendar();
                 UpdateUserList();
             }
+            else {
+                errorLoginTextBlock.Visibility = Visibility.Visible;
+            }
 
 
         }
@@ -75,15 +98,13 @@ namespace WpfApplication1
         {
             List<EventData> myEvents = server.GetEventsByUser(me.id).ToList();
             eventsListView.ItemsSource = myEvents;
-
         }
 
-        private void addEvent_Click(object sender, RoutedEventArgs e)
+
+
+        private void addEventButton_Click(object sender, RoutedEventArgs e)
         {
-            Proxy.EventData tmpEvent = new Proxy.EventData();
-            tmpEvent.subject = subjectTextBox.Text;
-            tmpEvent.description = descriptionTextBox.Text;
-            tmpEvent.location = locationTextBox.Text;
+            
             server.AddEvent(subjectTextBox.Text,
                 descriptionTextBox.Text,
                 locationTextBox.Text,
@@ -91,18 +112,20 @@ namespace WpfApplication1
                 isEntireDay.IsChecked ?? false,
                 endDateTimePicker.Value ?? DateTime.Now.AddHours(1),
                 colorPicker.SelectedColor.ToString() ?? "#f0f",
-                isShared.IsChecked ?? false);
+                isShared.IsChecked ?? false,
+                me.id);
 
+            ResetNewEventPanel();
         }
 
-        private void ChatButton_Click(object sender, RoutedEventArgs e)
-        {
+        
 
-        }
-
-        private void backButton_Click(object sender, RoutedEventArgs e)
+        private void logOutButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateUserList();
+            server.LogOut();
+            mainGrid.Visibility = Visibility.Collapsed;
+            greetingPanel.Visibility = Visibility.Collapsed;
+            logInPanel.Visibility = Visibility.Visible;
         }
 
         //UserList
@@ -118,7 +141,83 @@ namespace WpfApplication1
             server.SendMessage(newMessagetxtBox.Text);
             newMessagetxtBox.Text = string.Empty;
         }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            //https://stackoverflow.com/a/7128002
+            ListViewItem item = (ListViewItem)sender;
+            EventData ed = (EventData)item.DataContext;
+
+
+            subjectTextBox.Text = ed.subject;
+            descriptionTextBox.Text = ed.description;
+            locationTextBox.Text = ed.location;
+            startDateTimePicker.Value = ed.start;
+            isEntireDay.IsChecked = ed.isEntireDay;
+            endDateTimePicker.Value = ed.end;
+            colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(ed.color); ;
+            isShared.IsChecked = ed.isShared;
+            idTextBlock.Text = ed.id.ToString();
+            
+            editEventButton.Visibility = Visibility.Visible;
+            addEventButton.Visibility = Visibility.Collapsed;
+            cancelEditEventButton.Visibility = Visibility.Visible;
+            
+        }
+
+        private void editEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            server.EditEvent(subjectTextBox.Text,
+                descriptionTextBox.Text,
+                locationTextBox.Text,
+                startDateTimePicker.Value ?? DateTime.Now,
+                isEntireDay.IsChecked ?? false,
+                endDateTimePicker.Value ?? DateTime.Now.AddHours(1),
+                colorPicker.SelectedColor.ToString() ?? "#f0f",
+                isShared.IsChecked ?? false,
+                int.Parse(idTextBlock.Text),
+                me.id);
+            ResetNewEventPanel();
+        }
+
+        private void cancelEditEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetNewEventPanel();
+        }
+
+        private void eventsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //https://stackoverflow.com/a/7128002
+            int i = (sender as ListView).SelectedIndex;
+            EventData ed = (EventData)eventsListView.Items.GetItemAt(i);
+
+            if (ed.userId == me.id)
+            {
+                subjectTextBox.Text = ed.subject;
+                descriptionTextBox.Text = ed.description;
+                locationTextBox.Text = ed.location;
+                startDateTimePicker.Value = ed.start;
+                isEntireDay.IsChecked = ed.isEntireDay;
+                endDateTimePicker.Value = ed.end;
+                colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(ed.color); ;
+                isShared.IsChecked = ed.isShared;
+                idTextBlock.Text = ed.id.ToString();
+
+                editEventButton.Visibility = Visibility.Visible;
+                addEventButton.Visibility = Visibility.Collapsed;
+                cancelEditEventButton.Visibility = Visibility.Visible;
+            }
+            else {
+                ResetNewEventPanel();
+            }
+        }
+
+
+        void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            //https://msdn.microsoft.com/en-us/library/system.windows.window.closing(v=vs.110).aspx
+            server.LogOut();
+        }
     }
-
-
 }
+    

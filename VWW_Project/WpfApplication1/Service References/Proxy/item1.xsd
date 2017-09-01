@@ -3,7 +3,7 @@
   <xs:complexType name="UserData">
     <xs:sequence>
       <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
@@ -27,7 +27,7 @@
       <xs:element minOccurs="0" name="location" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="start" type="xs:dateTime" />
       <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="userId" type="xs:int" />
+      <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EventData" nillable="true" type="tns:EventData" />
