@@ -176,7 +176,7 @@
                     select: function (start, end) {
                         if(isAuthenticated){
                             selectedEvent = {
-                                eventId: 0,
+                                id: 0,
                                 title: '',
                                 description: '',
                                 start: start,
@@ -194,7 +194,7 @@
                     eventDrop: function (event) {
                         if(isAuthenticated && IsCurrentUser(event.userId)){
                             var data = {
-                                Id: event.eventId,
+                                Id: event.id,
                                 Subject: event.title,
                                 Start: event.start.format('DD/MM/YYYY HH:mm A'),
                                 End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
