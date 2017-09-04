@@ -81,19 +81,7 @@ namespace Host
             //    UserId = "11"
             //});
 
-            //em.CreateEvent(new Event
-            //{
-            //    Subject = "kiffen",
-            //    Description = "Joint rauchen",
-            //    Location = "draussen",
-            //    Start = DateTime.Now.AddHours(5),
-            //    End = DateTime.Now.AddHours(6),
-            //    IsFullDay = false,
-            //    IsShared = true,
-            //    ThemeColor = "#fff",
-            //    Id = 3,
-            //    UserId = "12"
-            //});
+            
 
         }
 
@@ -101,11 +89,7 @@ namespace Host
         public List<UserData> GetAllUsers()
         {
             List<UserData> userList = new List<UserData>();
-
-            //userList.Add(new UserData() {  firstName = "frank", lastName = "hasenbalg", userName = "fr", password = "huhu" });
-            //userList.Add(new UserData() {  firstName = "pascal", lastName = "wegner", userName = "pa", password = "huhu" });
-            //userList.Add(new UserData() {  firstName = "phillip", lastName = "zylike", userName = "phi", password = "huhu" });
-
+            
             foreach (var dbUser in um.GetAllUsers())
             {
                 userList.Add(new UserData()
@@ -181,6 +165,12 @@ namespace Host
             IChatClient connection = OperationContext.Current.GetCallbackChannel<IChatClient>();
             _users[connection] = userName;
 
+            // set user online
+            um.SetUserOnline(
+                um.GetAllUsers().Where(u => u.Username == userName).First().Id
+                );
+            
+
             string user;
             if (!_users.TryGetValue(connection, out user))
             {
@@ -199,6 +189,17 @@ namespace Host
         public void LogOut() {
             IChatClient connection = OperationContext.Current.GetCallbackChannel<IChatClient>();
             _users.Remove(connection);
+
+            string userName;
+            if (!_users.TryGetValue(connection, out userName))
+            {
+                return;
+            }
+
+            // set user offline
+            um.SetUserOffline(
+                um.GetAllUsers().Where(u => u.Username == userName).First().Id
+                );
 
             foreach (var other in _users.Keys)
             {
