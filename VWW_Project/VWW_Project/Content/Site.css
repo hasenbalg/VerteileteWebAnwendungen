@@ -38,3 +38,6 @@ textarea {
     display: flex;
     justify-content: space-around;
 }
+.fc-toolbar.fc-header-toolbar{
+    margin: 1em 0 1em 0;
+}
