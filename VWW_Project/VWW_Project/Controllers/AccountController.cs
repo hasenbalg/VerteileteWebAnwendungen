@@ -171,6 +171,7 @@ namespace VWW_Project.Controllers
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Username = user.UserName,
+                        Password = model.Password,
                         IsOnline = true
                     };
                     this.usersManager.CreateUser(newUser);
