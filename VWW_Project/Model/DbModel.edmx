@@ -46,7 +46,6 @@
     <Property Name="IsFullDay" Type="bit" Nullable="false" />
     <Property Name="IsShared" Type="bit" Nullable="false" />
     <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="MessageSet1">
     <Key>
@@ -143,7 +142,6 @@
           <Property Name="IsShared" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="DbModel.UserEvent" FromRole="Event" ToRole="User" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="255" />
-          <Property Name="Location" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="UserEvent">
           <End Type="DbModel.User" Role="User" Multiplicity="1" />
@@ -223,7 +221,6 @@
           <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
           <ScalarProperty Name="IsShared" ColumnName="IsShared" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/17/2017 16:01:07
+-- Date Created: 09/21/2017 12:25:31
 -- Generated from EDMX file: E:\Studium\6. Semester\VWW\Hausarbeit\VWW_Project\Model\DbModel.edmx
 -- --------------------------------------------------
 
@@ -66,8 +66,7 @@ CREATE TABLE [dbo].[EventSet] (
     [ThemeColor] nvarchar(10)  NULL,
     [IsFullDay] bit  NOT NULL,
     [IsShared] bit  NOT NULL,
-    [UserId] nvarchar(255)  NOT NULL,
-    [Location] nvarchar(max)  NOT NULL
+    [UserId] nvarchar(255)  NOT NULL
 );
 GO
 

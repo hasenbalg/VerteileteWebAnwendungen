@@ -23,7 +23,6 @@ namespace Model
         public bool IsFullDay { get; set; }
         public bool IsShared { get; set; }
         public string UserId { get; set; }
-        public string Location { get; set; }
     
         public virtual User User { get; set; }
     }
