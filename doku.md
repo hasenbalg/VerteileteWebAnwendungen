@@ -25,4 +25,11 @@ Weitere wichtige Referenzen im Host sind die auf DAL, Model und das EntityFramew
 Durch die Verwendung von Callbacks auf dem Client muessen die Clients nicht in Intervallen fragen, ob es neue Informationen gibt. So wird der Service entlastet.
 
 ## Transparenz
-Der ServiceHost bietet CRUD-Funktionalitaet fuer fuer alle seine DataContracts an. Die DataContracts ensprechen weitestgehend den Datenbankmodellen. 
+Der ServiceHost bietet CRUD-Funktionalitaet fuer fuer alle seine DataContracts an. Die DataContracts ensprechen weitestgehend den Datenbankmodellen.
+
+
+## Interaktion zwischen Host und Windows Client
+Findet beim Client bei einem Client ein Event statt, der die Benachichtigug der anderen Clients erfordert, wie z.B. das Absenden einer neuen Chatnachicht, veranlasst der Host ueber einen Callback-Kanal, dass die Clients beim Host nach Updates fragen.
+Analog wird mit Login, Logout und mit neuen/geaenderten/geloeschten Kalendereintraegen verfahren.
+
+![Nachichtenaustauschflowchart](doku/NachichtenAustauschFlowChart.svg)
