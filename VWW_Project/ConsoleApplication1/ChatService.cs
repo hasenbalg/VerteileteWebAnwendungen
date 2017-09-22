@@ -32,56 +32,73 @@ namespace Host
              em = new EventsManager(db);
 
 
-            //um.CreateUser(new User()
-            //{
-            //    FirstName = "andrej",
-            //    LastName = "vasenko",
-            //    Username = "an",
-            //    Password = "huhu",
-            //    IsOnline = true,
-            //    Id = "11"
-
-            //});
-
-            //um.CreateUser(new User()
-            //{
-            //    FirstName = "marlenchen",
-            //    LastName = "t",
-            //    Username = "ma",
-            //    Password = "huhu",
-            //    IsOnline = true,
-            //    Id = "12"
-
-            //});
-
-            //em.CreateEvent(new Event {
-            //    Subject = "duschen",
-            //    Description = "Wasser kommt von oben",
-            //    Location = "Badezimmer",
-            //    Start = DateTime.Now.AddHours(1),
-            //    End = DateTime.Now.AddHours(2),
-            //    IsFullDay = false,
-            //    IsShared = true,
-            //    ThemeColor = "#ff0",
-            //    Id = 1,
-            //    UserId = "10"
-            //});
-
-            //em.CreateEvent(new Event
-            //{
-            //    Subject = "essen",
-            //    Description = "Nahreung aufnehmen",
-            //    Location = "Kueche",
-            //    Start = DateTime.Now.AddHours(3),
-            //    End = DateTime.Now.AddHours(4),
-            //    IsFullDay = false,
-            //    IsShared = true,
-            //    ThemeColor = "#f00",
-            //    Id = 2,
-            //    UserId = "11"
-            //});
+            //CreateNewUsers();
 
             
+            
+
+        }
+
+        private void CreateNewUsers()
+        {
+            um.CreateUser(new User()
+            {
+                FirstName = "andrej",
+                LastName = "vasenko",
+                Username = "an",
+                Password = "huhu",
+                //IsOnline = true,
+               // Id = "11"
+
+            });
+
+            um.CreateUser(new User()
+            {
+                FirstName = "frank",
+                LastName = "ha",
+                Username = "fr",
+                Password = "Qwerty123!",
+                //IsOnline = true,
+                //Id = "11"
+
+            });
+
+            um.CreateUser(new User()
+            {
+                FirstName = "marlenchen",
+                LastName = "t",
+                Username = "ma",
+                Password = "huhu",
+                //IsOnline = true,
+                //Id = "12"
+
+            });
+
+            em.CreateEvent(new Event
+            {
+                Subject = "duschen",
+                Description = "Wasser kommt von oben",
+                Start = DateTime.Now.AddHours(1),
+                End = DateTime.Now.AddHours(2),
+                IsFullDay = false,
+                IsShared = true,
+                ThemeColor = "#ff0",
+                Id = 1,
+                UserId = "10"
+            });
+
+            em.CreateEvent(new Event
+            {
+                Subject = "essen",
+                Description = "Nahreung aufnehmen",
+                Start = DateTime.Now.AddHours(3),
+                End = DateTime.Now.AddHours(4),
+                IsFullDay = false,
+                IsShared = true,
+                ThemeColor = "#f00",
+                Id = 2,
+                UserId = "11"
+            });
 
         }
 
@@ -109,8 +126,13 @@ namespace Host
 
         public bool LogIn(string userName, string password)
         {
-            return GetAllUsers()
-                .Where(u => u.userName == userName && u.password == password).ToList().Count > 0;
+            UserData user = null;
+            user = GetAllUsers()
+                .Where(u => u.userName == userName && u.password == password).First();
+
+            um.SetUserOnline(user.id);
+
+            return user != null;
         }
 
         public UserData GetUser(string userName)
@@ -121,17 +143,16 @@ namespace Host
         public List<UserData> GetOnlineUsers()
         {
             List<UserData> uOnline = new List<UserData>();
-            foreach (var _user in _users)
+            foreach (var u in GetAllUsers())
             {
-                foreach (var userData in GetAllUsers())
+                if (um.GetUserById(u.id).IsOnline)
                 {
-                    if (_user.Value.Equals(userData.userName))
-                    {
-                        uOnline.Add(userData);
-                    }
+                    uOnline.Add(u);
                 }
             }
             return uOnline;
+
+            
         }
 
         public void AddUser(string userName, string password, string firstName, string lastname)
@@ -231,14 +252,20 @@ namespace Host
 
        
 
-        public void AddEvent(string subject, string description, string location, DateTime start, bool isEntireDay, DateTime end, string color, bool isShared, string userId)
+        public void AddEvent(string subject, string description, DateTime start, bool isEntireDay, DateTime end, string color, bool isShared, string userId)
         {
+            int id = 1;
+            try
+            {
 
-            int id = em.GetAllEvents().OrderByDescending(e => e.Id).First().Id + 1;
+                id = em.GetAllEvents().OrderByDescending(e => e.Id).First().Id + 1;
+            }
+            catch {
+                Console.WriteLine("erster termin");
+            }
             em.CreateEvent(new Event() {
                 Subject = subject,
                 Description = description,
-                Location = location,
                 Start = start,
                 IsFullDay = isEntireDay,
                 End = end,
@@ -276,7 +303,6 @@ namespace Host
                 {
                     subject = dbEvent.Subject,
                     description = dbEvent.Description,
-                    location = dbEvent.Location,
                     start = dbEvent.Start,
                     isEntireDay = dbEvent.IsFullDay,
                     end = dbEvent.End ?? DateTime.MinValue,
@@ -301,10 +327,10 @@ namespace Host
             return GetAllEvents().Where(e => e.userId == userId || e.isShared).ToList();
         }
 
-        public void EditEvent(string subject, string description, string location, DateTime start, bool isEntireDay, DateTime end, string color, bool isShared, int id, string userId)
+        public void EditEvent(string subject, string description, DateTime start, bool isEntireDay, DateTime end, string color, bool isShared, int id, string userId)
         {
             DeleteEvent(id);
-            AddEvent( subject,  description,  location,  start,  isEntireDay,  end,  color,  isShared, userId);
+            AddEvent( subject,  description,  start,  isEntireDay,  end,  color,  isShared, userId);
         }
 
         public void DeleteEvent(int id)

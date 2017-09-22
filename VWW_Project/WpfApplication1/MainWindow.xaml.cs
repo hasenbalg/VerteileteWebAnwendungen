@@ -36,7 +36,7 @@ namespace WpfApplication1
             InitializeComponent();
 
             userNameTextBox.Text = "fr";
-            passwordBox.Password = "huhu";
+            passwordBox.Password = "Qwerty123!";
 
 
 
@@ -57,7 +57,7 @@ namespace WpfApplication1
 
             subjectTextBox.Text = string.Empty;
             descriptionTextBox.Text = string.Empty;
-            locationTextBox.Text = string.Empty;
+            //locationTextBox.Text = string.Empty;
             startDateTimePicker.Value = DateTime.Now;
             isEntireDay.IsChecked = false;
             endDateTimePicker.Value = DateTime.Now.AddHours(1);
@@ -107,7 +107,7 @@ namespace WpfApplication1
             
             server.AddEvent(subjectTextBox.Text,
                 descriptionTextBox.Text,
-                locationTextBox.Text,
+                //locationTextBox.Text,
                 startDateTimePicker.Value ?? DateTime.Now,
                 isEntireDay.IsChecked ?? false,
                 endDateTimePicker.Value ?? DateTime.Now.AddHours(1),
@@ -151,7 +151,7 @@ namespace WpfApplication1
 
             subjectTextBox.Text = ed.subject;
             descriptionTextBox.Text = ed.description;
-            locationTextBox.Text = ed.location;
+            //locationTextBox.Text = ed.location;
             startDateTimePicker.Value = ed.start;
             isEntireDay.IsChecked = ed.isEntireDay;
             endDateTimePicker.Value = ed.end;
@@ -169,7 +169,7 @@ namespace WpfApplication1
         {
             server.EditEvent(subjectTextBox.Text,
                 descriptionTextBox.Text,
-                locationTextBox.Text,
+                //locationTextBox.Text,
                 startDateTimePicker.Value ?? DateTime.Now,
                 isEntireDay.IsChecked ?? false,
                 endDateTimePicker.Value ?? DateTime.Now.AddHours(1),
@@ -195,7 +195,7 @@ namespace WpfApplication1
             {
                 subjectTextBox.Text = ed.subject;
                 descriptionTextBox.Text = ed.description;
-                locationTextBox.Text = ed.location;
+                //locationTextBox.Text = ed.location;
                 startDateTimePicker.Value = ed.start;
                 isEntireDay.IsChecked = ed.isEntireDay;
                 endDateTimePicker.Value = ed.end;
@@ -218,6 +218,8 @@ namespace WpfApplication1
             //https://msdn.microsoft.com/en-us/library/system.windows.window.closing(v=vs.110).aspx
             server.LogOut();
         }
+
+        
     }
 }
     

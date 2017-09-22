@@ -71,8 +71,8 @@
                 <Label Content="Beschreibung?"/>
                 <TextBox x:Name="descriptionTextBox"/>
 
-                <Label Content="Wo?"/>
-                <TextBox x:Name="locationTextBox"/>
+                <!--<Label Content="Wo?"/>
+                <TextBox x:Name="locationTextBox" TextChanged="locationTextBox_TextChanged"/>-->
 
                 <Label Content="Wann?"/>
                 <g:DateTimePicker x:Name="startDateTimePicker"/>

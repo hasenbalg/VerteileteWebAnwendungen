@@ -42,7 +42,7 @@ namespace Host
         [OperationContract(IsOneWay = true)]
         void AddEvent(string subject,
             string description,
-            string location,
+           // string location,
             DateTime start,
             bool isEntireDay,
             DateTime end,
@@ -59,7 +59,7 @@ namespace Host
         [OperationContract(IsOneWay = true)]
         void EditEvent(string subject,
             string description,
-            string location,
+            //string location,
             DateTime start,
             bool isEntireDay,
             DateTime end,
@@ -108,8 +108,8 @@ namespace Host
         [DataMember]
         public string description { get; set; }
 
-        [DataMember]
-        public string location { get; set; }
+        //[DataMember]
+        //public string location { get; set; }
 
         [DataMember]
         public DateTime start { get; set; }

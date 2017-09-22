@@ -150,9 +150,6 @@ namespace WpfApplication1.Proxy {
         private bool isSharedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string locationField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime startField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -245,19 +242,6 @@ namespace WpfApplication1.Proxy {
                 if ((this.isSharedField.Equals(value) != true)) {
                     this.isSharedField = value;
                     this.RaisePropertyChanged("isShared");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string location {
-            get {
-                return this.locationField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.locationField, value) != true)) {
-                    this.locationField = value;
-                    this.RaisePropertyChanged("location");
                 }
             }
         }
@@ -364,10 +348,10 @@ namespace WpfApplication1.Proxy {
         System.Threading.Tasks.Task DeleteUserAsync(string id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/AddEvent")]
-        void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
+        void AddEvent(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/AddEvent")]
-        System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
+        System.Threading.Tasks.Task AddEventAsync(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetEvent", ReplyAction="http://tempuri.org/IChatService/GetEventResponse")]
         WpfApplication1.Proxy.EventData GetEvent(int id);
@@ -382,10 +366,10 @@ namespace WpfApplication1.Proxy {
         System.Threading.Tasks.Task<WpfApplication1.Proxy.EventData[]> GetEventsByUserAsync(string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditEvent")]
-        void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
+        void EditEvent(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/EditEvent")]
-        System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
+        System.Threading.Tasks.Task EditEventAsync(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/DeleteEvent")]
         void DeleteEvent(int id);
@@ -511,12 +495,12 @@ namespace WpfApplication1.Proxy {
             return base.Channel.DeleteUserAsync(id);
         }
         
-        public void AddEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
-            base.Channel.AddEvent(subject, description, location, start, isEntireDay, end, color, isShared, userId);
+        public void AddEvent(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
+            base.Channel.AddEvent(subject, description, start, isEntireDay, end, color, isShared, userId);
         }
         
-        public System.Threading.Tasks.Task AddEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
-            return base.Channel.AddEventAsync(subject, description, location, start, isEntireDay, end, color, isShared, userId);
+        public System.Threading.Tasks.Task AddEventAsync(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, string userId) {
+            return base.Channel.AddEventAsync(subject, description, start, isEntireDay, end, color, isShared, userId);
         }
         
         public WpfApplication1.Proxy.EventData GetEvent(int id) {
@@ -535,12 +519,12 @@ namespace WpfApplication1.Proxy {
             return base.Channel.GetEventsByUserAsync(userId);
         }
         
-        public void EditEvent(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
-            base.Channel.EditEvent(subject, description, location, start, isEntireDay, end, color, isShared, id, userId);
+        public void EditEvent(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
+            base.Channel.EditEvent(subject, description, start, isEntireDay, end, color, isShared, id, userId);
         }
         
-        public System.Threading.Tasks.Task EditEventAsync(string subject, string description, string location, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
-            return base.Channel.EditEventAsync(subject, description, location, start, isEntireDay, end, color, isShared, id, userId);
+        public System.Threading.Tasks.Task EditEventAsync(string subject, string description, System.DateTime start, bool isEntireDay, System.DateTime end, string color, bool isShared, int id, string userId) {
+            return base.Channel.EditEventAsync(subject, description, start, isEntireDay, end, color, isShared, id, userId);
         }
         
         public void DeleteEvent(int id) {

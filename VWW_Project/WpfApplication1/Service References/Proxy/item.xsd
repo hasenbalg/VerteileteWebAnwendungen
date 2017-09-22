@@ -97,7 +97,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="location" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="start" type="xs:dateTime" />
         <xs:element minOccurs="0" name="isEntireDay" type="xs:boolean" />
         <xs:element minOccurs="0" name="end" type="xs:dateTime" />
@@ -140,7 +139,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="location" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="start" type="xs:dateTime" />
         <xs:element minOccurs="0" name="isEntireDay" type="xs:boolean" />
         <xs:element minOccurs="0" name="end" type="xs:dateTime" />
