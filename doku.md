@@ -15,7 +15,6 @@ Extensions:
 
 
 # Host
-
 Der Host hat eine Referenz auf System.ServiceModel. In 'Program' wird von dort eine Instanz von ServiceHost erzeugt, die vom Typ 'ChatService' ist. So werden alle dort definierten Funktionen und Datenmodelle vom Host angeboten.
 Indirekt wird dann ueber den Callback-Contract in 'IChatService' auch 'IChatClient' publiziert.
 
@@ -32,4 +31,19 @@ Der ServiceHost bietet CRUD-Funktionalitaet fuer fuer alle seine DataContracts a
 Findet beim Client bei einem Client ein Event statt, der die Benachichtigug der anderen Clients erfordert, wie z.B. das Absenden einer neuen Chatnachicht, veranlasst der Host ueber einen Callback-Kanal, dass die Clients beim Host nach Updates fragen.
 Analog wird mit Login, Logout und mit neuen/geaenderten/geloeschten Kalendereintraegen verfahren.
 
-![Nachichtenaustauschflowchart](doku/NachichtenAustauschFlowChart.svg)
+![Nachichtenaustauschflowchart](doku/NachichtenAustauschFlowChart.png)
+
+
+
+## Quellen
+### Einfuehrungsliteratur
+Basic WCF Programming, Erik Reitan, Luke Latham u.a, https://docs.microsoft.com/en-us/dotnet/framework/wcf/basic-wcf-programming, 22.09.2017
+
+Deploying a WPF Application (WPF), Luke Latham, Bill Wagner u.a, https://docs.microsoft.com/en-us/dotnet/framework/wpf/app-development/deploying-a-wpf-application-wpf, 22.09.2017
+
+### URL-Referenzen aus dem Quellcode
+WPF ListView with buttons on each line, Fredrik Hedblad, https://stackoverflow.com/a/7128002, 22.09.2017
+
+Window.Closing Event, https://msdn.microsoft.com/en-us/library/system.windows.window.closing(v=vs.110).aspx, 22.09.2017
+
+How do I access the UI thread for my WCF subscriber?, Parapura Rajkumar, https://stackoverflow.com/a/8207299, 22.09.2017
