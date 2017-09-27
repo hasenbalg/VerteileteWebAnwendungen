@@ -33,8 +33,6 @@ Analog wird mit Login, Logout und mit neuen/geaenderten/geloeschten Kalendereint
 
 ![Nachichtenaustauschflowchart](doku/NachichtenAustauschFlowChart.png)
 
-
-
 ## Quellen
 ### Einfuehrungsliteratur
 Basic WCF Programming, Erik Reitan, Luke Latham u.a, https://docs.microsoft.com/en-us/dotnet/framework/wcf/basic-wcf-programming, 22.09.2017
@@ -47,3 +45,15 @@ WPF ListView with buttons on each line, Fredrik Hedblad, https://stackoverflow.c
 Window.Closing Event, https://msdn.microsoft.com/en-us/library/system.windows.window.closing(v=vs.110).aspx, 22.09.2017
 
 How do I access the UI thread for my WCF subscriber?, Parapura Rajkumar, https://stackoverflow.com/a/8207299, 22.09.2017
+
+# Webkalender
+Auf der Suche nach einem passenden Kalender, sind wir auf den Kalender https://fullcalendar.io/ gestoßen und haben diesen aufgrund seiner vielfältigen Features und passender Adaption an Bootstrap gewählt.
+Die Implementierung erfolgte über JQuery in Kombination mit dem Modal von Bootstrap als Dialog direkt in der Index-View des HomeControllers.
+Durch den Import der Bibliothek hatten wir schon das Grundgerüst und mussten nur noch unser DbModel einbinden. Um auf unsere Datenbank zuzugreifen wird ein AJAX-Request an die HomeController GetEvents-Action gesendet, der ein JSON mit einer gemappten List des EntitySet zurückliefert.
+Im Script wird dann jedes Event in ein JS-Array gemappt, damit die Daten mit der Bibliothek interagieren können. Das Array wird dann dem "events"-Feld des Kalender zugewiesen und schon werden alle Events gerendert.
+
+Da der Kalender das Hauptfeature unserer Applikation ist, haben wir auf einen herkömmlichen Home-Bereich verzichtet und zeigen den Kalender auf unserer Home-Page an. 
+Wenn man nicht eingeloggt ist, sieht man den Kalender zwar, jedoch kann man nicht mit ihm interagieren. 
+
+
+
