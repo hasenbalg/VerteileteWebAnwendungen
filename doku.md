@@ -47,13 +47,13 @@ Window.Closing Event, https://msdn.microsoft.com/en-us/library/system.windows.wi
 How do I access the UI thread for my WCF subscriber?, Parapura Rajkumar, https://stackoverflow.com/a/8207299, 22.09.2017
 
 # Webkalender
-Auf der Suche nach einem passenden Kalender, sind wir auf den Kalender https://fullcalendar.io/ gestoßen und haben diesen aufgrund seiner vielfältigen Features und passender Adaption an Bootstrap gewählt.
-Die Implementierung erfolgte über JQuery in Kombination mit dem Modal von Bootstrap als Dialog direkt in der Index-View des HomeControllers.
-Durch den Import der Bibliothek hatten wir schon das Grundgerüst und mussten nur noch unser DbModel einbinden. Um auf unsere Datenbank zuzugreifen wird ein AJAX-Request an die HomeController GetEvents-Action gesendet, der ein JSON mit einer gemappten List des EntitySet zurückliefert.
-Im Script wird dann jedes Event in ein JS-Array gemappt, damit die Daten mit der Bibliothek interagieren können. Das Array wird dann dem "events"-Feld des Kalender zugewiesen und schon werden alle Events gerendert.
+Auf der Suche nach einem passenden Kalender, sind wir auf den Kalender https://fullcalendar.io/ gestoÃŸen und haben diesen aufgrund seiner vielfÃ¤ltigen Features und passender Adaption an Bootstrap gewÃ¤hlt.
+Die Implementierung erfolgte Ã¼ber JQuery in Kombination mit dem Modal von Bootstrap als Dialog direkt in der Index-View des HomeControllers.
+Durch den Import der Bibliothek hatten wir schon das GrundgerÃ¼st und mussten nur noch unser DbModel einbinden. Um auf unsere Datenbank zuzugreifen wird ein AJAX-Request an die HomeController GetEvents-Action gesendet, der ein JSON mit einer gemappten List des EntitySet zurÃ¼ckliefert.
+Im Script wird dann jedes Event in ein JS-Array gemappt, damit die Daten mit der Bibliothek interagieren kÃ¶nnen. Das Array wird dann dem "events"-Feld des Kalender zugewiesen und schon werden alle Events gerendert.
 
-Da der Kalender das Hauptfeature unserer Applikation ist, haben wir auf einen herkömmlichen Home-Bereich verzichtet und zeigen den Kalender auf unserer Home-Page an. 
+Da der Kalender das Hauptfeature unserer Applikation ist, haben wir auf einen herkÃ¶mmlichen Home-Bereich verzichtet und zeigen den Kalender auf unserer Home-Page an. 
 Wenn man nicht eingeloggt ist, sieht man den Kalender zwar, jedoch kann man nicht mit ihm interagieren. 
 
-
+![MVC-DAL Diagramm](doku/MVC_DAL.png)
 
