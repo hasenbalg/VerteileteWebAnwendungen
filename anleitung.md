@@ -32,7 +32,7 @@ Auf der Seite Mitglieder können jederzeit alle angemeldeten Mitglieder eingeseh
 
 ### 1.5. Chat
 
-Um den Chat zu nutzen, müssen Sie die Exe Datei der Host und der WpfApplication1 ausführen und sich mit ihren Daten anmelden. Nun können Sie beginnen, mit den anderen Nutzern, die per WpfApplication1 online sind, zu chatten.
+Um den Chat zu nutzen, müssen Sie den Pfad zur Datenbank in App.config anpassen, die Exe Datei der Host(braucht Admin-Rechte) und der WpfApplication1 ausführen und sich mit ihren Daten anmelden. Nun können Sie beginnen, mit den anderen Nutzern, die per WpfApplication1 online sind, zu chatten.
 
 ### 1.6. Konfiguration Service-Host
 Die Konfiguration fuer den Service-Host kann in App.Config angepasst werden.
